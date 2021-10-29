@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+주식매매일지 삭제
+{% endblock %}
+
+{% block content %}
+    <a href="{% url 'posts:list' %}">주식 매매일지 보기</a>
+    <!-- 폼생성 input 제목, 내용, 작성자 -->
+    <form action="" method="POST">
+        {% csrf_token %}
+        {% include 'posts/post_card.html' %}
+        <div>
+            <p>위 글을 삭제하시겠습니까?</p>
+            <p>삭제된 글은 복원할 수 없습니다.</p>
+        </div>
+        <input type="submit" value="삭제하기">
+        <a href="{{ request.META.HTTP_REFERER }}">뒤로가기</a>
+    </form>
+
+{% endblock %}
+

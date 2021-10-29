@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+주식 매매일지 작성
+{% endblock %}
+
+
+{% block content %}
+<a href="{% url 'posts:list' %}">주식매매일지 보기</a>
+<form action="" method="POST">
+    {% csrf_token %}
+    <div>
+        <label>제목</label>
+        <input type="text" name="title" value="{{post.title}}">
+    </div>
+
+    <div>
+        <label>내용</label>
+        <textarea name="content">{{post.content}}</textarea>
+    </div>
+
+    <div>
+        <label>작성자</label>
+        <input type="text" name="created_by" value="{{post.created_by}}">
+    </div>
+
+    <div>
+        <input type="submit" value="게시글 작성">
+    </div>
+</form>
+
+{% endblock %}

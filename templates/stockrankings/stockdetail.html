@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+Stock Detail
+{% endblock %}
+
+<h1>Stock Detail</h1>
+<hr>
+{% block content %}
+
+
+<h1>Stock Summary</h1><br>
+
+{% if not stockrankings %}
+
+    <h1>검색 결과가 없습니다</h1>
+
+{% else %}
+
+    {% for stockranking in stockrankings %}
+        {{stockranking.stockname}}<br>
+        {{stockranking.marketcap}}<br>
+    {% endfor %}
+
+{% endif %}
+
+
+
+{% endblock  %}
+

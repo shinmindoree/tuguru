@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+수익률 인증 게시판
+{% endblock %}
+
+{% block content %}
+<form action="", method="POST" enctype="multipart/form-data">
+ {% csrf_token %}
+<label for="title">제목</label>
+<input type="text" name="title" id="title"><br>
+<label for="description">종목 구성 설명</label>
+<input type="text" name="description" id="description"><br>
+<label>수익률 인증하기</label>
+<input type="file" name="image"><br>
+<input type="submit" value="이미지첨부">
+
+</form>
+{% endblock  %}
+
+

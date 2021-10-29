@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+이미지리스트
+{% endblock %}
+
+{% block content %}
+<h1>주식 계좌 인증</h1>
+<a href="{% url 'photolog:create' %}">이미지 업로드하기</a><br>
+{% for photolog in photolog_all %}
+<p>제목{{ photolog.title}}</p>
+<p>종목구성 {{ photolog.description}}</p>
+{{ photolog.image}}<br>
+<img src="{{ photolog.image.url }}"><br><br><br>
+
+{% endfor %}
+{% endblock %}

@@ -2,3 +2,14 @@
     width: 100px ;
     height: 100px ;
 }
+
+input {
+    width: 150px;
+    height: 300px;
+    margin: 3px 0;
+}
+
+
+.hover-me a:hover {
+font-size:0;
+}

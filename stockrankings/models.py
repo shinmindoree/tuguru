@@ -1,20 +1,26 @@
+from re import T
 from django.db import models
 
 # # Create your models here.
 
 class Stockrankings(models.Model):
-    stockname = models.CharField(max_length=100, null = True)
-    # brandlogo = models.ImageField()
-    marketcap = models.IntegerField(null = True)
-    revenue = models.IntegerField(null = True)
-    grossprofit = models.IntegerField(null = True)
-    operatingCashflow = models.IntegerField(null = True)
-    netprofit = models.IntegerField(null = True)
-    price =models.IntegerField(null = True)
-    employee = models.IntegerField(null = True)
-    dividendyield = models.IntegerField(null = True) 
-    earningdate = models.CharField(max_length=100, null = True)
-    country = models.CharField(max_length=100, null = True)
+    companyname = models.CharField(max_length=100, null=True)
+    ticker = models.CharField(max_length=100, null=True)
+    # brandlogo = models.ImageField(null=True)
+    marketCap = models.FloatField(null=True)
+    totalRevenue = models.FloatField(null=True)
+    grossprofit = models.FloatField(null=True)
+    operatingCashflow = models.FloatField(null=True)
+    netIncomeToCommon = models.FloatField(null=True)
+    price =models.FloatField(null=True)
+    employee = models.IntegerField(null=True)
+    dividendyield = models.FloatField(null=True) 
+    sector = models.CharField(max_length=100, null=True)
+    website = models.CharField(max_length=100, null=True)
+    industry = models.CharField(max_length=100, null=True)
+    currency = models.CharField(max_length=100, null=True)
+    priceToBook = models.FloatField(null=True)
+    country = models.CharField(max_length=100, null=True)
 
 
 

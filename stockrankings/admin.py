@@ -4,5 +4,5 @@ from .models import Stockrankings, Tenbaggers
 # Register your models here.
 @admin.register(Stockrankings)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['stockname', 'marketcap']
+    list_display = ['ticker']
     

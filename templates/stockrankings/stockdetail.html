@@ -17,8 +17,12 @@ Stock Detail
 {% else %}
 
     {% for stockranking in stockrankings %}
-        {{stockranking.stockname}}<br>
-        {{stockranking.marketcap}}<br>
+        회사명 : {{stockranking.companyname}}<br><br>
+        시가총액 : {{stockranking.marketCap}}<br><br>
+        웹사이트 : <a href="{{stockranking.website}}">{{stockranking.website}}</a><br><br>
+        섹터 : {{stockranking.sector}} | {{stockranking.industry}}<br><br>
+
+
     {% endfor %}
 
 {% endif %}

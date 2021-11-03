@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +18,14 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/searchpanes/1.4.0/css/searchPanes.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
 
-    <br>
+    <!-- jquery를 불러오기 위한 소스 -->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <!-- datatable의 css 불러오기 -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+    <!-- datatable의 js 불러오기 -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+
+    
     {% if user.is_authenticated %}
     <button><a href="{% url 'accounts:logout' %}">Logout</a></button>
     {% else %}
@@ -26,10 +34,21 @@
     {% endif %}
     <br><br>
 
-    <h1>투자의구루</h1>
+    <div>
+    <center>
     <a href="{% url 'homepage:home' %}">
         <img class="logo" src="{% static 'image/logo.png' %}" alt="투자의구루 로고">
     </a>
+    </center>
+    <br>
+    </div>
+
+    <div class="text-center">
+    <h1>투자의구루</h1>
+    </div>
+
+  
+    
     <br>
    
     <!-- 종목 검색창 -->
@@ -41,14 +60,6 @@
         </div>
     </form> -->
     <!--  -->
-
-    <form class="form-inline my-2 my-lg-0" action="{% url 'stockrankings:search' %}" method="post">
-        {% csrf_token %}
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q" value="{{q}}">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-        
-
 
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -76,18 +87,37 @@
         </nav>
     </header>
 </head>
+<br><br><br>
+
+  <form action="{% url 'stockrankings:search' %}" method="post">
+        {% csrf_token %}
+        <center>
+        <input class='search_bar' type="search" placeholder="Search" aria-label="Search" name="q" value="{{q}}" class="input">
+        </center>
+    </form>
 
 <body>
 
     {% block content %}
     {% endblock %}
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
-        crossorigin="anonymous"></script> -->
+     
 </body>
 
 <script>
-        
+// 해당 영역은 script 영역이라 html과는 다른 명령어 사용 크게 주석 사용도 <!----> 형식에서 //로 바뀌었습니다.
+// $ 문자가 들어가는건 jquert라고 합니다.
+$(document).ready(function() {      // document 현재 문서가 ready 준비되었을때 즉 모두 로딩이 되었을때 function함수를 실행해라 
+    $('#table_id').DataTable( {      // #example : example라는 id를 가진 항목에 DataTable를 추가해라
+        "ajax": {
+            "url": "{% url 'stockrankings:test' %}", // 데이터를 가지고 올 경로
+            "dataSrc": ""
+        },
+        "columns": [
+            { "data": "test" },             // 데이터 중 name라는 값을 첫 번째 컬럼에 넣기
+            { "data": "test2" },         // 데이터 중 position 값을 두 번째 컬럼에 넣기
+        ]
+    } );
+} );       
 </script>
 
 </html>

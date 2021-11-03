@@ -3,8 +3,8 @@
     height: 100px ;
 }
 
-input {
-    width: 150px;
+.search_bar{
+    width: 200px;
     height: 300px;
     margin: 3px 0;
 }

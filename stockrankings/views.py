@@ -16,52 +16,52 @@ import time
 #     return test
 
 ######## Fundamentals에 db저장하여 저장 #########
-start = time.time()
+# start = time.time()
 
-def stockdb():
-    #stocks 에 종목심볼 리스트저장
-    stocks = fd.select_equities(
-        country='United States')
+# def stockdb():
+#     #stocks 에 종목심볼 리스트저장
+#     stocks = fd.select_equities(
+#         country='United States')
 
-    #fundamental 에 재무재표 json으로 담기
-    fundamentals = {}
-    for symbol in stocks:
-        fundamentals[symbol] = get_json(
-            "https://finance.yahoo.com/quote/" + symbol)
+#     #fundamental 에 재무재표 json으로 담기
+#     fundamentals = {}
+#     for symbol in stocks:
+#         fundamentals[symbol] = get_json(
+#             "https://finance.yahoo.com/quote/" + symbol)
     
-    # 필요항목만 bulk로 Stockrankings model에 저장
-    stock_db_list = []
+#     # 필요항목만 bulk로 Stockrankings model에 저장
+#     stock_db_list = []
     
-    for symbols in fundamentals:
-        try:
-            if fundamentals[symbols]['price']['exchange'] in ['NYQ','ASE', 'NCM', 'NMS']:
-                #종목 재무 데이터
-                ticker = symbols
-                companyname = fundamentals[symbols]['quoteType']['longName']
-                marketCap = fundamentals[symbols]['price']['marketCap']
-                totalRevenue = fundamentals[symbol]['financialData']['totalRevenue']
-                grossprofit = fundamentals[symbols]['financialData']['grossProfits']
-                netIncomeToCommon= fundamentals[symbols]['defaultKeyStatistics']['netIncomeToCommon']
-                operatingCashflow = fundamentals[symbols]['financialData']['operatingCashflow']
-                price = fundamentals[symbols]['financialData']['currentPrice']
-                employee = fundamentals[symbols]['summaryProfile']['fullTimeEmployees']
-                dividendyield = fundamentals[symbols]['summaryDetail']['dividendRate']
-                sector = fundamentals[symbols]['summaryProfile']['sector']
-                website = fundamentals[symbols]['summaryProfile']['website']
-                industry = fundamentals[symbols]['summaryProfile']['industry']
-                currency = fundamentals[symbols]['price']['currency']
-                priceToBook = fundamentals[symbols]['defaultKeyStatistics']['priceToBook']
-                country = fundamentals[symbols]['summaryProfile']['country']
+#     for symbols in fundamentals:
+#         try:
+#             if fundamentals[symbols]['price']['exchange'] in ['NYQ','ASE', 'NCM', 'NMS']:
+#                 #종목 재무 데이터
+#                 ticker = symbols
+#                 companyname = fundamentals[symbols]['quoteType']['longName']
+#                 marketCap = fundamentals[symbols]['price']['marketCap']
+#                 totalRevenue = fundamentals[symbol]['financialData']['totalRevenue']
+#                 grossprofit = fundamentals[symbols]['financialData']['grossProfits']
+#                 netIncomeToCommon= fundamentals[symbols]['defaultKeyStatistics']['netIncomeToCommon']
+#                 operatingCashflow = fundamentals[symbols]['financialData']['operatingCashflow']
+#                 price = fundamentals[symbols]['financialData']['currentPrice']
+#                 employee = fundamentals[symbols]['summaryProfile']['fullTimeEmployees']
+#                 dividendyield = fundamentals[symbols]['summaryDetail']['dividendRate']
+#                 sector = fundamentals[symbols]['summaryProfile']['sector']
+#                 website = fundamentals[symbols]['summaryProfile']['website']
+#                 industry = fundamentals[symbols]['summaryProfile']['industry']
+#                 currency = fundamentals[symbols]['price']['currency']
+#                 priceToBook = fundamentals[symbols]['defaultKeyStatistics']['priceToBook']
+#                 country = fundamentals[symbols]['summaryProfile']['country']
 
-                stock_db_list.append(Stockrankings(ticker=ticker, companyname=companyname, marketCap=marketCap, totalRevenue=totalRevenue, grossprofit=grossprofit, netIncomeToCommon=netIncomeToCommon, operatingCashflow=operatingCashflow, price=price,employee=employee, dividendyield=dividendyield, sector=sector, website=website, industry=industry, currency=currency, priceToBook=priceToBook, country=country))
-        except:
-            pass
+#                 stock_db_list.append(Stockrankings(ticker=ticker, companyname=companyname, marketCap=marketCap, totalRevenue=totalRevenue, grossprofit=grossprofit, netIncomeToCommon=netIncomeToCommon, operatingCashflow=operatingCashflow, price=price,employee=employee, dividendyield=dividendyield, sector=sector, website=website, industry=industry, currency=currency, priceToBook=priceToBook, country=country))
+#         except:
+#             pass
             
-    Stockrankings.objects.bulk_create(stock_db_list)
+#     Stockrankings.objects.bulk_create(stock_db_list)
 
-stockdb()
+# stockdb()
 
-print("time :", time.time() - start)
+# print("time :", time.time() - start)
 
 # start = time.time()
 # ######## 기존 stock db 코드#########

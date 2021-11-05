@@ -1,7 +1,7 @@
 import requests
 from django.shortcuts import get_object_or_404, redirect, render
 import urllib
-from .models import Stockrankings
+from .models import Stockrankings, Comment_stock
 import FinanceDatabase as fd
 from yfinance.utils import get_json
 from yfinance import download
@@ -123,17 +123,18 @@ def tenbaggers(request):
 
 def detail(request,ticker):
     stockrank_all = Stockrankings.objects.get(ticker=ticker)
+    comment_list = Comment_stock.objects.filter(stockrank_all=stockrank_all)
 
-    context = {'stockrank_all': stockrank_all}
+    context = {'stockrank_all': stockrank_all, 'comment_list':comment_list}
+    
     return render(request, 'stockrankings/stockdetail.html', context)
 
-# @login_required
-# def comment_create(request, ticker):
-#     stock_ticker = get_object_or_404(Stockrankings, ticker=ticker)
-#     content = request.POST.get('content')
-#     Comment.objects.create(content=content, post=post)
-#     return redirect('posts:detail', post.id)
-
+def comment_create(request, ticker):
+    stock_ticker = get_object_or_404(Stockrankings, ticker=ticker)
+    stock_content = request.POST.get('stock_content')
+    Comment_stock.objects.create(stock_content=stock_content, stock_ticker=stock_ticker)
+    return redirect('stockrankings:detail',stock_ticker.ticker)
+   
 
 # def search(request):
 #     stockrank_all= Stockrankings.objects.all()

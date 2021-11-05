@@ -39,6 +39,10 @@ class Tenbaggers(models.Model):
 #     # earningdate = models.CharField(max_length=100)
 #     # country = models.CharField(max_length=100)
     
-    
+
+class Comment_stock(models.Model):
+    stock_content = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    stock_post = models.ForeignKey(to=Stockrankings, on_delete=models.CASCADE)
     
     

@@ -10,23 +10,12 @@ Stock Detail
 
 <h1>Stock Summary</h1><br>
 
-{% if not stockrankings %}
 
-    <h1>검색 결과가 없습니다</h1>
-
-{% else %}
-
-    {% for stockranking in stockrankings %}
-        회사명 : {{stockranking.companyname}}<br><br>
-        시가총액 : {{stockranking.marketCap}}<br><br>
-        웹사이트 : <a href="{{stockranking.website}}">{{stockranking.website}}</a><br><br>
-        섹터 : {{stockranking.sector}} | {{stockranking.industry}}<br><br>
-
-
-    {% endfor %}
-
-{% endif %}
-
+회사명 : {{stockrank_all.companyname}}<br><br>
+티커 : {{stockrank_all.ticker}}<br><br>
+시가총액 : {{stockrank_all.marketCap}}<br><br>
+웹사이트 : <a href="{{stockrank_all.website}}">{{stockrank_all.website}}</a><br><br>
+섹터 : {{stockrank_all.sector}} | {{stockrank_all.industry}}
 
 
 {% endblock  %}

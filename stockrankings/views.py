@@ -1,5 +1,5 @@
 import requests
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 import urllib
 from .models import Stockrankings
 import FinanceDatabase as fd
@@ -8,7 +8,7 @@ from yfinance import download
 from django.core.paginator import Paginator
 from django.db.models import Q
 import time
-
+from django.contrib.auth.decorators import login_required
 
 # # 2021.11.03 test
 # def test(request):
@@ -107,19 +107,32 @@ import time
 def ranking(request):
     stockrank_all = Stockrankings.objects.all().order_by('-marketCap')
     # stockrank_all = Stockrankings.objects.filter(country='United States').order_by('-marketcap')
-    paginator = Paginator(stockrank_all, 50)
-    page = request.GET.get('page')
-    rank_page = paginator.get_page(page)
-    context = {'stockrank_all': stockrank_all, 'rank_page': rank_page}
+    # paginator = Paginator(stockrank_all, 50)
+    # page = request.GET.get('page')
+    # rank_page = paginator.get_page(page)
+    context = {'stockrank_all': stockrank_all}
 
     return render(request, 'stockrankings/ranking_all.html', context)
 
 
 def tenbaggers(request):
-    # 주식 데이터 읽어오기
-    # 텐배거에 대한 공식 입력 후 이에 해당하는 주식리스트만 변수로 저장하기
-    # 화면 출력
-    return render(request, 'stockrankings/ranking_tenbagger.html')
+    stockrank_all = Stockrankings.objects.all().order_by('-marketCap')
+    context = {'stockrank_all': stockrank_all}
+    return render(request, 'stockrankings/ranking_tenbagger.html', context)
+
+
+def detail(request,ticker):
+    stockrank_all = Stockrankings.objects.get(ticker=ticker)
+
+    context = {'stockrank_all': stockrank_all}
+    return render(request, 'stockrankings/stockdetail.html', context)
+
+# @login_required
+# def comment_create(request, ticker):
+#     stock_ticker = get_object_or_404(Stockrankings, ticker=ticker)
+#     content = request.POST.get('content')
+#     Comment.objects.create(content=content, post=post)
+#     return redirect('posts:detail', post.id)
 
 
 # def search(request):
@@ -136,17 +149,14 @@ def tenbaggers(request):
 #     else:
 #         return redirect('stockrankings:ranking')
 
-def search(request):
-    stockrankings = Stockrankings.objects.all().order_by('-marketCap')
+# def search(request):
+#     stockrankings = Stockrankings.objects.all().order_by('-marketCap')
 
-    q = request.POST.get('q', "")
+#     q = request.POST.get('q', "")
 
-    if q:
-        stockrankings = stockrankings.filter(ticker__icontains=q)
-        return render(request, 'stockrankings/stockdetail.html', {'stockrankings': stockrankings, 'q': q})
+#     if q:
+#         stockrankings = stockrankings.filter(ticker__icontains=q)
+#         return render(request, 'stockrankings/stockdetail.html', {'stockrankings': stockrankings, 'q': q})
 
-    else:
-        return render(request, 'stockrankings/stockdetail.html')
-
-
-#실행시간 측정 코드
+#     else:
+#         return render(request, 'stockrankings/stockdetail.html')

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'photolog',
     'stockrankings',
     'homepage',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [

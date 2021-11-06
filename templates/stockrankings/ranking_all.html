@@ -9,22 +9,21 @@
 {% load mathfilters %}
 {% block content %}
 
-    <h1>주식 랭킹</h1>
 
-    <table id="rank" class="table table-striped table-hover" align="center">
+    <table  id="rank" class="hover" style="width:100%">
         <thead>
-        <tr align="center">
+        <tr>
             <th>Rank</th>
             <th>종목명</th>
             <th>섹터</th>
-            <th>시가총액($)</th>
-            <th>주가($)</th>
-            <th>매출($)</th>
-            <th>매출총이익($)</th>
-            <th>순이익($)</th>
-            <th>영업현금흐름($)</th>
+            <th>시가총액</th>
+            <th>주가</th>
+            <th>매출</th>
+            <th>매출총이익</th>
+            <th>순이익</th>
+            <th>영업현금흐름</th>
             <th>PBR</th>
-            <th>배당율(%)</th>
+            <th>배당율</th>
             <th>직원수</th>
             <th>국가</th>
         </tr>
@@ -34,21 +33,49 @@
         {% for company in stockrank_all %}
             <tr>
                 <td>{{ forloop.counter}}</td>
-
                 <td>
-                <img style="margin-right: 20px; margin-bottom: 10px; width:50px; height:50px;" align='left' src="{% get_static_prefix %}image/{{company.ticker}}.png ">
+                <img style="margin-right: 10px; margin-bottom: 10px; width:40px; height:40px;" align="left" src="{% get_static_prefix %}image/{{company.ticker}}.png ">
                 <a href="{% url 'stockrankings:detail' company.ticker %}">{{ company.companyname }}<br>{{ company.ticker }}</a>
                 </td>
-
                 <td>{{ company.sector }}</td>
-                <td>{{ company.marketCap}}</td>
-                <td>{{ company.price}}</td>
-                <td>{{ company.totalRevenue }}</td>
-                <td>{{ company.grossprofit }}</td>
-                <td>{{ company.netIncomeToCommon }}</td>
-                <td>{{ company.operatingCashflow}}</td>
-                <td>{{ company.priceToBook}}</td>
-                <td>{{ company.dividendyield}}</td>
+                {% if company.marketCap >= 1000000000000 %}
+                    <td>
+                       $ {{ company.marketCap|div:1000000000000|floatformat:3 }} T
+                    </td>
+                {% elif  company.marketCap < 1000000000000 %}
+                    <td>
+                       $ {{ company.marketCap|div:1000000000000|floatformat:3 }} B
+                    </td>
+                {% else %}
+                    <td>
+                       $ {{ company.marketCap }}
+                    </td>
+                {% endif %}
+  
+                <td>$ {{ company.price|floatformat:2}}</td>
+
+                <td>$ {{ company.totalRevenue|div:1000000|floatformat:0 }}</td>
+                
+                {% if company.grossprofit >= 100000000000 %}
+                    <td>$ {{ company.grossprofit|div:1000000000|floatformat:2}} B</td>
+
+                {% elif company.grossprofit < 100000000000 %}
+                    <td>$ {{ company.grossprofit|div:1000000000|floatformat:2}} B</td>
+                {% endif %}
+                
+                {% if company.netIncomeToCommon >= 1000000000 %}
+                    <td>$ {{ company.netIncomeToCommon|div:1000000000|floatformat:2 }} B</td>
+                {% elif 100000000 <= company.grossprofit < 1000000000 %}
+                    <td>$ {{ company.netIncomeToCommon|div:1000000000|floatformat:2 }} B</td>
+               
+                {% endif %}
+
+                {% if company.operatingCashflow >= 1000000000 %}
+                <td>$ {{ company.operatingCashflow|div:10000000000|floatformat:2}} B</td>
+                {% endif %}
+
+                <td>{{ company.priceToBook |floatformat:1}}</td>
+                <td>{{ company.dividendyield}} % </td>
                 <td>{{ company.employee}}</td>
                 <td>{{ company.country}}
                 </td>

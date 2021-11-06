@@ -1,9 +1,15 @@
 .logo {
-    width: 100px ;
-    height: 100px ;
+    width: 200px ;
+    height: 200px ;
 }
 
 .hover-me a:hover {
-  font-size: 0;
+  font-size: 50;
+  background: gold;
 }
 
+
+#nav_bar {
+  font-size: 30px;
+
+}

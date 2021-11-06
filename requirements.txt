@@ -9,6 +9,7 @@ cycler==0.10.0
 debugpy==1.5.0
 decorator==5.1.0
 Django==3.2.7
+django-mathfilters==1.0.0
 entrypoints==0.3
 finance-datareader==0.9.31
 FinanceDatabase==0.1.10

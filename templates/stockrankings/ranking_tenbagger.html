@@ -7,48 +7,21 @@
 {% load static %}
 {% block content %}
 
-<table id="rank" class="hover" style="width:100%">
-    <tr>
-        <th>Rank</th>
-        <th>종목명</th>
-        <th>섹터</th>
-        <th>시가총액($)</th>
-        <th>주가($)</th>
-        <th>매출($)</th>
-        <th>매출총이익($)</th>
-        <th>순이익($)</th>
-        <th>영업현금흐름($)</th>
-        <th>PBR</th>
-        <th>배당율(%)</th>
-        <th>직원수</th>
-        <th>국가</th>
-    </tr>
+<form action="" method="POST">
+    {% csrf_token %}
+    <div>
+        <label>종목 검색 </label>
+        <input type="text" name="ticker">
+        <button type="submit">검색</button>
+    </div>
+<hr>
 
 
- {% for company in stockrank_all %}
-    <tr> 
-        <td>{{ forloop.counter}}</td>   
+티커 : {{symbol}}<br>
+회사이름 : {{shortName}}<br>
+시가총액 : {{marketCap}}<br>
+주가 : {{regularMarketPrice}}<br>
+Trailing PE : {{trailingPE}}<br>
 
-        <td>
-        <img style="margin-right: 10px; margin-bottom: 10px; width:40px; height:40px;" align="left" src="{% get_static_prefix %}image/{{company.ticker}}.png ">
-        <a href="{% url 'stockrankings:detail' company.ticker %}">{{ company.companyname }}<br>{{ company.ticker }}</a>
-        
-        </td>
 
-        <td>{{ company.sector }}</td>
-        <td>{{ company.marketCap}}</td>
-        <td>{{ company.price}}</td>
-        <td>{{ company.totalRevenue }}</td>
-        <td>{{ company.grossprofit }}</td>
-        <td>{{ company.netIncomeToCommon }}</td>
-        <td>{{ company.operatingCashflow}}</td>
-        <td>{{ company.priceToBook}}</td>
-        <td>{{ company.dividendyield}}</td>
-        <td>{{ company.employee}}</td>
-        <td>{{ company.country}} </td>
-    </tr>
-    {% endfor %}
-    
-</table>
-{% endblock  %}
-
+{% endblock %}

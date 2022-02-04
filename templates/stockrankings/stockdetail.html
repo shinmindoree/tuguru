@@ -5,29 +5,19 @@ Stock Detail
 
 <h1>Stock Detail</h1>
 <hr>
+
 {% block content %}
 
 
 <h1>Stock Summary</h1><br>
 
+회사명 : {{shortName}}<br><br>
+티커 : {{ticker}}<br><br>
+시가총액 : {{marketCap}}<br><br>
+주가 : {{regularMarketPrice}}<br><br>
+Trailing PE : {{trailingPE}}
 
-회사명 : {{stockrank_all.companyname}}<br><br>
-티커 : {{stockrank_all.ticker}}<br><br>
-시가총액 : {{stockrank_all.marketCap}}<br><br>
-웹사이트 : <a href="{{stockrank_all.website}}">{{stockrank_all.website}}</a><br><br>
-섹터 : {{stockrank_all.sector}} | {{stockrank_all.industry}}
 <hr>
 
-<form action="{% url 'stockrankings:comment_create' stockrank_all.ticker %}" method="POST">
-    {% csrf_token %}
-    <input type="text" name="stock_content">
-    <input type="submit" value="댓글작성하기">
-    </form>
-    {% for comment in comment_list %}
-    <p>{{ comment.stock_content }} | {{ comment.created_at }}</p>
-    {% empty %}
-    <p>댓글이 없습니다.</p>
-    {% endfor %} 
-    
 {% endblock  %}
 
